@@ -18,12 +18,17 @@
 </form>
   </div>
   </div>
+  <button @click="test">TEST</button>
 </template>
 
 <script>
 // @ is an alias to /src
 import axios from 'axios'
-
+// const test = axios.create({
+//   timeout: 10000,
+//   withCredentials: true,
+//   headers: {
+//     'Accept': 'application/json'}});
 export default {
   name: 'Home',
   components: {
@@ -46,10 +51,16 @@ export default {
 
                 // console.log(this.user)
 
-                axios.post('http://127.0.0.1:8000/api/login',this.user,{ withCredentials: true })
-                    .then(res=>{console.log(res)})
+                axios.post('https://127.0.0.1:8000/api/login',this.user, {withCredentials:true})
+                    .then(res=>{
+                      console.log(res);
+                      })
 
-            }
+            },
+    test(){
+        axios.get('https://127.0.0.1:8000/api/me', {withCredentials:true})
+            .then(res=>{console.log(res)})
+    }
   }
 
 }

@@ -46,7 +46,7 @@ export default {
 
                 // console.log(this.user)
 
-                axios.post('http://127.0.0.1:8000/api/users',this.user)
+                axios.post('https://127.0.0.1:8000/api/users',this.user)
                     .then(res=>{console.log(res)})
 
             }
