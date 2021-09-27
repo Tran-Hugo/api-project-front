@@ -19,6 +19,8 @@
   </div>
   </div>
   <button @click="test">TEST</button>
+  <button @click="logout">logout</button>
+
 </template>
 
 <script>
@@ -59,6 +61,10 @@ export default {
             },
     test(){
         axios.get('https://127.0.0.1:8000/api/me', {withCredentials:true})
+            .then(res=>{console.log(res)})
+    },
+    logout(){
+        axios.post('https://127.0.0.1:8000/api/logout', {withCredentials:true})
             .then(res=>{console.log(res)})
     }
   }
