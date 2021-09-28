@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>{{me.username}}</h1>
+    <h1>{{me}}</h1>
     <img alt="Vue logo" class="" src="../assets/logo.png">
     <div class="container">
     <form>
@@ -30,7 +30,7 @@
 
 <script>
 // @ is an alias to /src
-import axios from 'axios'
+
 import {mapState} from 'vuex'
 
 // const test = axios.create({
@@ -63,16 +63,15 @@ export default {
                 this.$store.dispatch('connexion',this.user)
 
             },
-    test(){
-        axios.get('https://127.0.0.1:8000/api/me', {withCredentials:true})
-            .then(res=>{console.log(res)})
-    },
+    
+    
     logout(){
         this.$store.dispatch('logout');
     }
   },
   mounted(){
     this.$store.dispatch('loadPosts');
+    this.$store.dispatch('test');
   },
   computed: {
     ...mapState([

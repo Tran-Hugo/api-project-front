@@ -42,6 +42,10 @@ export default createStore({
               me.length= 0;
               commit('SET_ME',me)
             })
+    },
+    test(){
+      axios.get('https://127.0.0.1:8000/api/me', {withCredentials:true})
+          .then(res=>{console.log(res)})
     }
   },
   modules: {
