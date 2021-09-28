@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>{{me.roles}}</h1>
+    <h1>{{me.username}}</h1>
     <img alt="Vue logo" class="" src="../assets/logo.png">
     <div class="container">
     <form>
@@ -22,7 +22,7 @@
   <button @click="test">TEST</button>
   <button @click="logout">logout</button>
   <br>
-  <div v-if="me.roles = 'ROLE_USER'">
+  <div v-if="(me.username != null) && (me.roles = 'ROLES_USER')">
   <h1 v-for="(item, index) in posts" :key='index'>{{item.title}}</h1>
   </div>
 
