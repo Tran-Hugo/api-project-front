@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <h1>{{me.roles}}</h1>
     <img alt="Vue logo" class="" src="../assets/logo.png">
     <div class="container">
     <form>
@@ -20,12 +21,18 @@
   </div>
   <button @click="test">TEST</button>
   <button @click="logout">logout</button>
+  <br>
+  <div v-if="me.roles = 'ROLE_USER'">
+  <h1 v-for="(item, index) in posts" :key='index'>{{item.title}}</h1>
+  </div>
 
 </template>
 
 <script>
 // @ is an alias to /src
 import axios from 'axios'
+import {mapState} from 'vuex'
+
 // const test = axios.create({
 //   timeout: 10000,
 //   withCredentials: true,
@@ -53,10 +60,7 @@ export default {
 
                 // console.log(this.user)
 
-                axios.post('https://127.0.0.1:8000/api/login',this.user, {withCredentials:true})
-                    .then(res=>{
-                      console.log(res);
-                      })
+                this.$store.dispatch('connexion',this.user)
 
             },
     test(){
@@ -64,9 +68,17 @@ export default {
             .then(res=>{console.log(res)})
     },
     logout(){
-        axios.post('https://127.0.0.1:8000/api/logout', {withCredentials:true})
-            .then(res=>{console.log(res)})
+        this.$store.dispatch('logout');
     }
+  },
+  mounted(){
+    this.$store.dispatch('loadPosts');
+  },
+  computed: {
+    ...mapState([
+      'posts',
+      'me'
+    ])
   }
 
 }
