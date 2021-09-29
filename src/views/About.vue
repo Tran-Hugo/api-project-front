@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>{{token}}</h1>
+    <h1>{{me}}</h1>
     <img alt="Vue logo" class="" src="../assets/logo.png">
     <div class="container">
     <form>
@@ -63,7 +63,9 @@ export default {
                 this.$store.dispatch('connexion',this.user)
 
             },
-    
+    test(){
+      this.$store.dispatch('test');
+    },
     
     logout(){
         this.$store.dispatch('logout');
@@ -71,7 +73,7 @@ export default {
   },
   mounted(){
     this.$store.dispatch('loadPosts');
-    this.$store.dispatch('test');
+    
   },
   computed: {
     ...mapState([

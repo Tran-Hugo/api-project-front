@@ -36,8 +36,8 @@ export default createStore({
       axios.post('https://127.0.0.1:8000/api/login',user, config)
                     .then(res=>{
                       console.log(res.data.data);
-                      let me = res.data.data;
-                      localStorage.setItem( 'MaybeItsAToken', JSON.stringify(res.data.token) );
+                      let me = res.data.token;
+                      localStorage.setItem( 'token',res.data.token );
                       commit('SET_ME',me);
                       })
     },
@@ -51,7 +51,13 @@ export default createStore({
             })
     },
     test(){
-      axios.get('https://127.0.0.1:8000/api/me', {withCredentials:true})
+      let config = {
+        headers:{
+          Authorization: 'Bearer ' + this.state.token
+      }
+      }
+      console.log(config)
+      axios.get('https://127.0.0.1:8000/api/me', config)
           .then(res=>{console.log(res)})
     }
   },
