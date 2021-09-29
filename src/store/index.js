@@ -4,7 +4,8 @@ import axios from 'axios'
 export default createStore({
   state: {
     posts: [],
-    me:[]
+    me:[],
+    token: localStorage.getItem('token'),
   },
   mutations: {
     SET_POSTS(state, posts){
@@ -27,10 +28,16 @@ export default createStore({
           })
     },
     connexion({commit},user){
-      axios.post('https://127.0.0.1:8000/api/login',user, {withCredentials:true})
+      let config = {
+        Headers: {
+            'Content-type': 'application/json'
+        }
+    };
+      axios.post('https://127.0.0.1:8000/api/login',user, config)
                     .then(res=>{
-                      console.log(res.data);
-                      let me = res.data;
+                      console.log(res.data.data);
+                      let me = res.data.data;
+                      localStorage.setItem( 'MaybeItsAToken', JSON.stringify(res.data.token) );
                       commit('SET_ME',me);
                       })
     },
