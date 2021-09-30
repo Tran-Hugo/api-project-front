@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 
+
 export default createStore({
   state: {
     posts: [],
@@ -16,17 +17,7 @@ export default createStore({
     }
   },
   actions: {
-    loadPosts ({commit}){
-      axios.get("https://127.0.0.1:8000/api/posts")
-          .then(data => {
-            console.log(data.data['hydra:member'])
-            let posts = data.data['hydra:member']
-            commit('SET_POSTS', posts)
-          })
-          .catch(error => {
-            console.log(error)
-          })
-    },
+    
     connexion({commit},user){
       let config = {
         Headers: {
@@ -51,13 +42,13 @@ export default createStore({
             })
     },
     test(){
-      let config = {
-        headers:{
-          Authorization: 'Bearer ' + this.state.token
-      }
-      }
-      console.log(config)
-      axios.get('https://127.0.0.1:8000/api/me', config)
+      // let config = {
+      //   headers:{
+      //     Authorization: 'Bearer ' + this.state.token
+      // }
+      // }
+      console.log()
+      axios.get('https://127.0.0.1:8000/api/me')
           .then(res=>{console.log(res)})
     }
   },

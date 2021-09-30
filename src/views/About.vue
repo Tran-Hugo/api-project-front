@@ -22,9 +22,22 @@
   <button @click="test">TEST</button>
   <button @click="logout">logout</button>
   <br>
-  <div v-if="(me.username != null) && (me.roles = 'ROLES_USER')">
+  <!-- <div v-if="(me.username != null) && (me.roles = 'ROLES_USER')"> -->
   <h1 v-for="(item, index) in posts" :key='index'>{{item.title}}</h1>
-  </div>
+  <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Première</a></li>
+    <div v-if="previousPageNum">
+    <li class="page-item"><a class="page-link" href="#" @click.prevent="previousPage">{{previousPageNum}}</a></li>
+    </div>
+    <li class="page-item"><a class="page-link" href="#">{{nextPageNum-1}}</a></li>
+    <div v-if="nextPageNum">
+    <li class="page-item"><a class="page-link" href="#" @click.prevent="nextPage">{{nextPageNum}}</a></li>
+    </div>
+    <li class="page-item"><a class="page-link" href="#">Dernière</a></li>
+  </ul>
+</nav>
+  <!-- </div> -->
 
 </template>
 
@@ -32,6 +45,7 @@
 // @ is an alias to /src
 
 import {mapState} from 'vuex'
+import axios from 'axios'
 
 // const test = axios.create({
 //   timeout: 10000,
@@ -46,7 +60,11 @@ export default {
   data(){
     return{
       email:'',
-      password:''
+      password:'',
+      posts:[],
+      pagination:null,
+      nextPageNum:null,
+      previousPageNum:null,
     }
   },
 
@@ -69,15 +87,44 @@ export default {
     
     logout(){
         this.$store.dispatch('logout');
+    },
+    previousPage(){
+      axios.get("https://127.0.0.1:8000" + this.pagination['hydra:previous'])
+          .then(data=>{
+            this.posts = data.data['hydra:member']
+            this.pagination = data.data['hydra:view'] 
+            this.previousPageNum = this.pagination['hydra:previous'].slice(16)   
+          })
+    },
+    nextPage(){
+      axios.get("https://127.0.0.1:8000" + this.pagination['hydra:next'])
+          .then(data=>{
+            this.posts = data.data['hydra:member']
+            this.pagination = data.data['hydra:view'] 
+            this.nextPageNum = this.pagination['hydra:next'].slice(16)   
+            this.previousPageNum = this.pagination['hydra:previous'].slice(16)
+          })
     }
   },
   mounted(){
-    this.$store.dispatch('loadPosts');
     
-  },
+      axios.get("https://127.0.0.1:8000/api/posts")
+          .then(data => {
+            this.posts = data.data['hydra:member']
+            this.pagination = data.data['hydra:view']
+            this.nextPageNum = this.pagination['hydra:next'].slice(16)
+            this.previousPageNum = this.pagination['hydra:previous'] ? this.pagination['hydra:previous'].slice(16): null
+            console.log(this.previousPageNum)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    },
+    
+  
   computed: {
     ...mapState([
-      'posts',
+      
       'me',
       'token'
     ])
