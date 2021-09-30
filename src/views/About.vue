@@ -23,7 +23,10 @@
   <button @click="logout">logout</button>
   <br>
   <!-- <div v-if="(me.username != null) && (me.roles = 'ROLES_USER')"> -->
-  <h1 v-for="(item, index) in posts" :key='index'>{{item.title}}</h1>
+  <div v-for="(item, index) in posts" :key='index'>
+  <h1>{{item.title}}</h1>
+  <button type="button" class="btn btn-warning"><router-link :to="'/post/' + item.id">{{item.slug}}</router-link></button>
+  </div>
   <nav aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item"><a class="page-link" href="#">Première</a></li>
@@ -31,7 +34,7 @@
     <li class="page-item"><a class="page-link" href="#" @click.prevent="previousPage">{{previousPageNum}}</a></li>
     </div>
     <div v-if="nextPageNum">
-    <li class="page-item"><a class="page-link" href="#">{{nextPageNum-1}}</a></li>
+    <li class="page-item page-link">{{nextPageNum-1}}</li>
     </div>
     <div v-else>
     <li class="page-item page-link">{{parseInt(previousPageNum)+1}}</li>
