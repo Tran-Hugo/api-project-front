@@ -34,7 +34,7 @@
     <li class="page-item"><a class="page-link" href="#">{{nextPageNum-1}}</a></li>
     </div>
     <div v-else>
-    <li class="page-item"><a class="page-link" href="#">{{parseInt(previousPageNum)+1}}</a></li>
+    <li class="page-item page-link">{{parseInt(previousPageNum)+1}}</li>
     </div>
     <div v-if="nextPageNum">
     <li class="page-item"><a class="page-link" href="#" @click.prevent="nextPage">{{nextPageNum}}</a></li>
