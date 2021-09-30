@@ -30,7 +30,12 @@
     <div v-if="previousPageNum">
     <li class="page-item"><a class="page-link" href="#" @click.prevent="previousPage">{{previousPageNum}}</a></li>
     </div>
+    <div v-if="nextPageNum">
     <li class="page-item"><a class="page-link" href="#">{{nextPageNum-1}}</a></li>
+    </div>
+    <div v-else>
+    <li class="page-item"><a class="page-link" href="#">{{parseInt(previousPageNum)+1}}</a></li>
+    </div>
     <div v-if="nextPageNum">
     <li class="page-item"><a class="page-link" href="#" @click.prevent="nextPage">{{nextPageNum}}</a></li>
     </div>
@@ -88,21 +93,22 @@ export default {
     logout(){
         this.$store.dispatch('logout');
     },
+    setPage(data){
+            this.posts = data.data['hydra:member']
+            this.pagination = data.data['hydra:view']   
+            this.previousPageNum = this.pagination['hydra:previous'] ? this.pagination['hydra:previous'].slice(16): null
+            this.nextPageNum = this.pagination['hydra:next'] ? this.pagination['hydra:next'].slice(16): null
+    },
     previousPage(){
       axios.get("https://127.0.0.1:8000" + this.pagination['hydra:previous'])
           .then(data=>{
-            this.posts = data.data['hydra:member']
-            this.pagination = data.data['hydra:view'] 
-            this.previousPageNum = this.pagination['hydra:previous'].slice(16)   
+            this.setPage(data)
           })
     },
     nextPage(){
       axios.get("https://127.0.0.1:8000" + this.pagination['hydra:next'])
           .then(data=>{
-            this.posts = data.data['hydra:member']
-            this.pagination = data.data['hydra:view'] 
-            this.nextPageNum = this.pagination['hydra:next'].slice(16)   
-            this.previousPageNum = this.pagination['hydra:previous'].slice(16)
+            this.setPage(data)
           })
     }
   },
@@ -110,11 +116,8 @@ export default {
     
       axios.get("https://127.0.0.1:8000/api/posts")
           .then(data => {
-            this.posts = data.data['hydra:member']
-            this.pagination = data.data['hydra:view']
-            this.nextPageNum = this.pagination['hydra:next'].slice(16)
-            this.previousPageNum = this.pagination['hydra:previous'] ? this.pagination['hydra:previous'].slice(16): null
-            console.log(this.previousPageNum)
+          this.setPage(data)
+
           })
           .catch(error => {
             console.log(error)
