@@ -4,6 +4,8 @@
   <h1>{{item.title}}</h1>
   <button type="button" class="btn btn-warning"><router-link :to="'/post/' + item.id">{{item.slug}}</router-link></button>
   </div>
+  <br>
+  <div class="d-flex justify-content-center">
   <nav aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item"><a class="page-link" href="#">Première</a></li>
@@ -22,6 +24,7 @@
     <li class="page-item"><a class="page-link" href="#">Dernière</a></li>
   </ul>
 </nav>
+</div>
 </template>
 
 <script>
