@@ -42,13 +42,13 @@ export default createStore({
             })
     },
     test(){
-      // let config = {
-      //   headers:{
-      //     Authorization: 'Bearer ' + this.state.token
-      // }
-      // }
+      let config = {
+        headers:{
+          Authorization: 'Bearer ' + this.state.token
+      }
+      }
       console.log()
-      axios.get('https://127.0.0.1:8000/api/me')
+      axios.get('https://127.0.0.1:8000/api/me', config)
           .then(res=>{console.log(res)})
     }
   },
