@@ -8,7 +8,7 @@
   <div class="d-flex justify-content-center">
   <nav aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="#">Première</a></li>
+    <li class="page-item"><router-link class="page-link" to='/posts/1' @click.prevent="firstPage">Première</router-link></li>
     <div v-if="previousPageNum">
     <li class="page-item"><router-link class="page-link" :to="'/posts/' + this.previousP" @click.prevent="previousPage">{{previousPageNum}}</router-link></li>
     </div>
@@ -21,7 +21,7 @@
     <div v-if="nextPageNum">
     <li class="page-item"><router-link class="page-link" :to="'/posts/' + this.nextP" @click.prevent="nextPage">{{nextPageNum}}</router-link></li>
     </div>
-    <li class="page-item"><a class="page-link" href="#">Dernière</a></li>
+    <li class="page-item"><router-link class="page-link" :to="'/posts/' + this.lastP" @click.prevent="lastPage">Dernière</router-link></li>
   </ul>
 </nav>
 </div>
@@ -36,6 +36,7 @@ data(){
       page:this.$route.params.id ? "?page=" + this.$route.params.id : "/",
       nextP: parseInt(this.$route.params.id)+1,
       previousP: parseInt(this.$route.params.id)-1,
+      lastP: null,
       posts:[],
       pagination:null,
       nextPageNum:null,
@@ -56,6 +57,20 @@ methods:{
             this.previousPageNum = this.pagination['hydra:previous'] ? this.pagination['hydra:previous'].slice(16): null
             this.nextPageNum = this.pagination['hydra:next'] ? this.pagination['hydra:next'].slice(16): null
     },
+    firstPage(){
+      axios.get("https://127.0.0.1:8000/api/posts"+ this.page)
+      .then(data => {
+      console.log(data.data['hydra:member'])
+      this.setPage(data)
+      })
+    },
+    lastPage(){
+      axios.get("https://127.0.0.1:8000/api/posts"+ this.page)
+      .then(data => {
+      console.log(data.data['hydra:member'])
+      this.setPage(data)
+      })
+    },
     previousPage(){
       axios.get("https://127.0.0.1:8000" + this.pagination['hydra:previous'])
           .then(data=>{
@@ -75,6 +90,7 @@ mounted(){
       .then(data => {
       console.log(data.data['hydra:member'])
       this.setPage(data)
+      this.lastP = data.data['hydra:view']['hydra:last'].slice(16)
       })
       .catch(error => {
             console.log(error)
