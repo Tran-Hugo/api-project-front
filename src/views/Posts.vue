@@ -58,14 +58,14 @@ methods:{
             this.nextPageNum = this.pagination['hydra:next'] ? this.pagination['hydra:next'].slice(16): null
     },
     firstPage(){
-      axios.get("https://127.0.0.1:8000/api/posts"+ this.page)
+      axios.get("https://127.0.0.1:8000"+ this.pagination['hydra:first'])
       .then(data => {
       console.log(data.data['hydra:member'])
       this.setPage(data)
       })
     },
     lastPage(){
-      axios.get("https://127.0.0.1:8000/api/posts"+ this.page)
+      axios.get("https://127.0.0.1:8000"+ this.pagination['hydra:last'])
       .then(data => {
       console.log(data.data['hydra:member'])
       this.setPage(data)
