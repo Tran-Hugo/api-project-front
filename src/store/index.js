@@ -26,7 +26,7 @@ export default createStore({
     };
       axios.post('https://127.0.0.1:8000/api/login',user, config)
                     .then(res=>{
-                      console.log(res.data.data);
+                      console.log(res.data);
                       let me = res.data.token;
                       localStorage.setItem( 'token',res.data.token );
                       commit('SET_ME',me);
