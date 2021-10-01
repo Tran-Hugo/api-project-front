@@ -2,6 +2,8 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Post from '../views/Post.vue'
+import Posts from '../views/Posts.vue'
+
 const routes = [
   {
     path: '/',
@@ -19,6 +21,21 @@ const routes = [
   {
     path:'/post/:id',
     component: Post
+  },
+  {
+    // Posts avec pagination, on passe l'id, va voir le router-link on passe un id par défaut dans le lien
+    path:'/posts',
+    name:'posts',
+    component: Posts,
+    children:[{
+      path:':id',
+      name:'postsId',
+      component:Posts,
+      props:true,
+      
+
+    }
+    ]
   }
 ]
 

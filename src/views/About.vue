@@ -22,29 +22,7 @@
   <button @click="test">TEST</button>
   <button @click="logout">logout</button>
   <br>
-  <!-- <div v-if="(me.username != null) && (me.roles = 'ROLES_USER')"> -->
-  <div v-for="(item, index) in posts" :key='index'>
-  <h1>{{item.title}}</h1>
-  <button type="button" class="btn btn-warning"><router-link :to="'/post/' + item.id">{{item.slug}}</router-link></button>
-  </div>
-  <nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="#">Première</a></li>
-    <div v-if="previousPageNum">
-    <li class="page-item"><a class="page-link" href="#" @click.prevent="previousPage">{{previousPageNum}}</a></li>
-    </div>
-    <div v-if="nextPageNum">
-    <li class="page-item page-link">{{nextPageNum-1}}</li>
-    </div>
-    <div v-else>
-    <li class="page-item page-link">{{parseInt(previousPageNum)+1}}</li>
-    </div>
-    <div v-if="nextPageNum">
-    <li class="page-item"><a class="page-link" href="#" @click.prevent="nextPage">{{nextPageNum}}</a></li>
-    </div>
-    <li class="page-item"><a class="page-link" href="#">Dernière</a></li>
-  </ul>
-</nav>
+
   <!-- </div> -->
 
 </template>
@@ -53,7 +31,7 @@
 // @ is an alias to /src
 
 import {mapState} from 'vuex'
-import axios from 'axios'
+// import axios from 'axios'
 
 // const test = axios.create({
 //   timeout: 10000,
@@ -69,10 +47,7 @@ export default {
     return{
       email:'',
       password:'',
-      posts:[],
-      pagination:null,
-      nextPageNum:null,
-      previousPageNum:null,
+      
     }
   },
 
@@ -96,35 +71,35 @@ export default {
     logout(){
         this.$store.dispatch('logout');
     },
-    setPage(data){
-            this.posts = data.data['hydra:member']
-            this.pagination = data.data['hydra:view']   
-            this.previousPageNum = this.pagination['hydra:previous'] ? this.pagination['hydra:previous'].slice(16): null
-            this.nextPageNum = this.pagination['hydra:next'] ? this.pagination['hydra:next'].slice(16): null
-    },
-    previousPage(){
-      axios.get("https://127.0.0.1:8000" + this.pagination['hydra:previous'])
-          .then(data=>{
-            this.setPage(data)
-          })
-    },
-    nextPage(){
-      axios.get("https://127.0.0.1:8000" + this.pagination['hydra:next'])
-          .then(data=>{
-            this.setPage(data)
-          })
-    }
-  },
-  mounted(){
+  //   setPage(data){
+  //           this.posts = data.data['hydra:member']
+  //           this.pagination = data.data['hydra:view']   
+  //           this.previousPageNum = this.pagination['hydra:previous'] ? this.pagination['hydra:previous'].slice(16): null
+  //           this.nextPageNum = this.pagination['hydra:next'] ? this.pagination['hydra:next'].slice(16): null
+  //   },
+  //   previousPage(){
+  //     axios.get("https://127.0.0.1:8000" + this.pagination['hydra:previous'])
+  //         .then(data=>{
+  //           this.setPage(data)
+  //         })
+  //   },
+  //   nextPage(){
+  //     axios.get("https://127.0.0.1:8000" + this.pagination['hydra:next'])
+  //         .then(data=>{
+  //           this.setPage(data)
+  //         })
+  //   }
+  // },
+  // mounted(){
     
-      axios.get("https://127.0.0.1:8000/api/posts")
-          .then(data => {
-          this.setPage(data)
+  //     axios.get("https://127.0.0.1:8000/api/posts")
+  //         .then(data => {
+  //         this.setPage(data)
 
-          })
-          .catch(error => {
-            console.log(error)
-          })
+  //         })
+  //         .catch(error => {
+  //           console.log(error)
+  //         })
     },
     
   
