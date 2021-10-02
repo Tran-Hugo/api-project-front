@@ -6,7 +6,7 @@ export default createStore({
   state: {
     posts: [],
     me:[],
-    token: localStorage.getItem('token'),
+    token: null,
   },
   mutations: {
     SET_POSTS(state, posts){
@@ -29,6 +29,7 @@ export default createStore({
                       console.log(res.data);
                       let me = res.data.token;
                       localStorage.setItem( 'token',res.data.token );
+                      this.state.token = localStorage.getItem('token');
                       commit('SET_ME',me);
                       })
     },
