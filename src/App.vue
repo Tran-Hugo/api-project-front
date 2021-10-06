@@ -4,6 +4,7 @@
     <router-link to="/login">Login</router-link> |
     <router-link :to="{ name: 'postsId', params: { id: 1 }}">Posts</router-link> |
     <router-link to="/addPost">Add Post</router-link> |
+    <router-link to="/dashboard">Dashboard</router-link> |
   </div>
   <router-view/>
 </template>

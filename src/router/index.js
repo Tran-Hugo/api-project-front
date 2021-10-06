@@ -4,6 +4,8 @@ import About from '../views/About.vue'
 import Post from '../views/Post.vue'
 import Posts from '../views/Posts.vue'
 import addPost from '../views/addPost.vue'
+import Dashboard from '../views/Dashboard.vue'
+import PostsAdmin from '../views/PostsAdmin.vue'
 
 const routes = [
   {
@@ -40,7 +42,17 @@ const routes = [
     path: '/addPost',
     name: 'addPost',
     component: addPost
-  }
+  },
+  {
+    path:'/dashboard',
+    name:'dashboard',
+    component: Dashboard,
+  },
+  {
+    path:'/dashboard/Posts',
+    name:'postsAdmin',
+    component:PostsAdmin,
+  },
 ]
 
 const router = createRouter({
