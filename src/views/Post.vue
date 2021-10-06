@@ -1,6 +1,7 @@
 <template>
   <h1>Post {{this.$route.params.id}}</h1>
-  {{Post}}
+  <img :src="this.domain+Post.fileUrl">
+  {{Post.title}}
 </template>
 
 <script>
@@ -9,6 +10,7 @@ export default {
 name:'Post',
 data(){
     return {
+        domain:"https://127.0.0.1:8000",
         Post:[],
         id:this.$route.params.id,
     }

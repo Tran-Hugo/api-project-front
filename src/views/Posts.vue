@@ -2,6 +2,7 @@
   <h1>Liste des posts</h1>
   <div v-for="(item, index) in posts" :key='index'>
   <h1>{{item.title}}</h1>
+  <img :src="this.domain+item.fileUrl">
   <button type="button" class="btn btn-warning"><router-link :to="'/post/' + item.id">{{item.slug}}</router-link></button>
   </div>
   <br>
@@ -33,6 +34,7 @@ export default {
 name:'Posts',
 data(){
     return {
+      domain:"https://127.0.0.1:8000",
       page:this.$route.params.id ? "?page=" + this.$route.params.id : "/",
       nextP: parseInt(this.$route.params.id)+1,
       previousP: parseInt(this.$route.params.id)-1,
