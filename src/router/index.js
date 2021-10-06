@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Post from '../views/Post.vue'
 import Posts from '../views/Posts.vue'
+import addPost from '../views/addPost.vue'
 
 const routes = [
   {
@@ -32,10 +33,13 @@ const routes = [
       name:'postsId',
       component:Posts,
       props:true,
-      
-
     }
     ]
+  },
+  {
+    path: '/addPost',
+    name: 'addPost',
+    component: addPost
   }
 ]
 
