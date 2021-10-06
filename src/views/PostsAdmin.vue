@@ -21,7 +21,9 @@
       <td>{{post.title}}</td>
       <td>{{post.slug}}</td>
       <td>{{post.content}}</td>
-      <td><router-link :to="'/post/' + post.id"><button type="button" class="btn btn-success">Voir</button></router-link><button type="button" class="btn btn-warning mx-3">Edit</button><button type="button" @click="remove(post.id)" class="btn btn-danger">Supprimer</button></td>
+      <td><router-link :to="'/post/' + post.id"><button type="button" class="btn btn-success">Voir</button></router-link>
+      <button type="button" class="btn btn-warning mx-3">Edit</button>
+      <button type="button" @click="remove(post.id)" class="btn btn-danger">Supprimer</button></td>
     </tr>
     
     
