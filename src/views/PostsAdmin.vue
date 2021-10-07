@@ -31,6 +31,7 @@
 
 <script>
 import axios from 'axios'
+import headerApiProject from '../helpers/configHeader'
 export default {
     name:'PostsAdmin',
     data(){
@@ -39,7 +40,8 @@ export default {
         }
     },
     mounted(){
-        axios.get("https://127.0.0.1:8000/api/posts/admin")
+      console.log(headerApiProject.config.headers)
+        axios.get("https://127.0.0.1:8000/api/posts/admin",headerApiProject.config)
       .then(data => {
           console.log(data.data['hydra:member'])
           this.posts = data.data['hydra:member']

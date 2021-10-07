@@ -31,7 +31,7 @@ export default createStore({
     };
       axios.post('https://127.0.0.1:8000/api/login',user, config)
                     .then(res=>{
-                      console.log(res.data.data['roles'][1]);
+                      console.log(res.data);
                       let me = res.data.data['roles'][0];  
                       localStorage.setItem( 'token',res.data.token );
                       this.state.token = localStorage.getItem('token');
