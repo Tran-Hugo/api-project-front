@@ -6,6 +6,7 @@ import Posts from '../views/Posts.vue'
 import addPost from '../views/addPost.vue'
 import Dashboard from '../views/Dashboard.vue'
 import PostsAdmin from '../views/PostsAdmin.vue'
+import CategoriesAdmin from '../views/CategoriesAdmin.vue'
 
 const routes = [
   {
@@ -47,12 +48,20 @@ const routes = [
     path:'/dashboard',
     name:'dashboard',
     component: Dashboard,
+    children:[
+      {
+        path:'Posts',
+        name:'postsAdmin',
+        component:PostsAdmin,
+      },
+      {
+        path:'Categories',
+        name:'categoriesAdmin',
+        component:CategoriesAdmin,
+      },
+    ]
   },
-  {
-    path:'/dashboard/Posts',
-    name:'postsAdmin',
-    component:PostsAdmin,
-  },
+  
 ]
 
 const router = createRouter({

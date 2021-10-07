@@ -1,7 +1,8 @@
 <template>
   <router-link :to="{ name: 'postsAdmin'}"><button type="button" class="btn btn-primary">Posts</button></router-link>
   <br>
-  <button type="button" class="btn btn-danger">Catégories</button>
+  <router-link :to="{ name: 'categoriesAdmin'}"><button type="button" class="btn btn-danger">Catégories</button></router-link>
+  <router-view></router-view>
 </template>
 
 <script>
