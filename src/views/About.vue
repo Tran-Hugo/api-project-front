@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>{{roles}}</h1>
+    <h1>{{role}}</h1>
     <img alt="Vue logo" class="" src="../assets/logo.png">
     <div class="container">
     <form>
@@ -102,7 +102,7 @@ export default {
   
   computed: {
     ...mapState([
-      'roles',
+      'role',
       'me',
       'token'
     ])

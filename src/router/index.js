@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import store from '../store'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Post from '../views/Post.vue'
@@ -48,6 +49,14 @@ const routes = [
     path:'/dashboard',
     name:'dashboard',
     component: Dashboard,
+    beforeEnter:  (to,from,next)=>{
+      // store.dispatch('test')
+      if(store.state.role !== 'ROLE_ADMIN') {
+        next(false);
+      } else {
+        next();
+      }
+    },
     children:[
       {
         path:'Posts',
@@ -59,7 +68,7 @@ const routes = [
         name:'categoriesAdmin',
         component:CategoriesAdmin,
       },
-    ]
+    ],
   },
   
 ]
