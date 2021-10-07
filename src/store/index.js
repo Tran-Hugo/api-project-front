@@ -6,7 +6,7 @@ export default createStore({
   state: {
     posts: [],
     me:[],
-    token: null,
+    token: localStorage.getItem('token'),
   },
   mutations: {
     SET_POSTS(state, posts){
@@ -14,7 +14,7 @@ export default createStore({
     },
     SET_ME(state, me){
       state.me = me
-    }
+    },
   },
   actions: {
     
@@ -26,21 +26,16 @@ export default createStore({
     };
       axios.post('https://127.0.0.1:8000/api/login',user, config)
                     .then(res=>{
-                      console.log(res.data);
-                      let me = res.data.token;
+                      console.log(res.data.data['roles'][0]);
+                      let me = res.data.token;  
                       localStorage.setItem( 'token',res.data.token );
                       this.state.token = localStorage.getItem('token');
                       commit('SET_ME',me);
                       })
     },
-    logout({commit}){
-      axios.post('https://127.0.0.1:8000/api/logout', {withCredentials:true})
-            .then(res=>{
-              console.log(res);
-              let me = [];
-              me.length= 0;
-              commit('SET_ME',me)
-            })
+    logout(){
+      localStorage.removeItem('token')
+      this.state.token = null
     },
     test(){
       let config = {

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>{{me}}</h1>
+    <h1>{{roles}}</h1>
     <img alt="Vue logo" class="" src="../assets/logo.png">
     <div class="container">
     <form>
@@ -40,9 +40,6 @@ import {mapState} from 'vuex'
 //     'Accept': 'application/json'}});
 export default {
   name: 'Home',
-  components: {
-
-  },
   data(){
     return{
       email:'',
@@ -105,7 +102,7 @@ export default {
   
   computed: {
     ...mapState([
-      
+      'roles',
       'me',
       'token'
     ])
