@@ -19,6 +19,9 @@ export default createStore({
     },
     SET_ROLE(state,role){
       state.role = role
+    },
+    RESET_ROLE(state,role){
+      state.role = role
     }
   },
   actions: {
@@ -38,10 +41,11 @@ export default createStore({
                       commit('SET_ROLE',me);
                       })
     },
-    logout(){
+    logout({commit}){
       localStorage.removeItem('token')
       this.state.token = null
-      this.state.role = []
+      let role = []
+      commit('RESET_ROLE',role)
     },
     test({commit}){
       let config = {

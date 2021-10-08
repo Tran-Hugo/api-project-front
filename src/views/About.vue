@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>{{role}}</h1>
+    <h1>{{token}}</h1>
     <img alt="Vue logo" class="" src="../assets/logo.png">
     <div class="container">
     <form>

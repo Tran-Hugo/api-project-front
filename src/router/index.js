@@ -50,7 +50,7 @@ const routes = [
     name:'dashboard',
     component: Dashboard,
     beforeEnter:  (to,from,next)=>{
-      // store.dispatch('test')
+      store.dispatch('test');
       if(store.state.role !== 'ROLE_ADMIN') {
         next(false);
       } else {
