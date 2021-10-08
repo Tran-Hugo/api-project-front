@@ -47,14 +47,14 @@ export default createStore({
       let role = []
       commit('RESET_ROLE',role)
     },
-    test({commit}){
+    async test({commit}){
       let config = {
         headers:{
           Authorization: 'Bearer ' + this.state.token
       }
       }
-      console.log()
-      axios.get('https://127.0.0.1:8000/api/me', config)
+      
+      await axios.get('https://127.0.0.1:8000/api/me', config)
           .then(res=>{
             console.log(res.data.roles)
             let role = res.data.roles[0]  
