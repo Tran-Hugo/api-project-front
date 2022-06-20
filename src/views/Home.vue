@@ -17,6 +17,11 @@
   <button type="submit" @click.prevent="createUser" class="btn btn-primary">Submit</button>
 </form>
   </div>
+  <div v-for="(article, key) in articles" :key="key">
+    <h1>{{article.title}}</h1>
+    <img :src="'https://127.0.0.1:8000/' + article.image" class="col-12" />
+    <p>{{article.text}}</p>
+  </div>
   </div>
 </template>
 
@@ -32,10 +37,13 @@ export default {
   data(){
     return{
       email:'',
-      password:''
+      password:'',
+      articles:[],
     }
   },
-
+  mounted(){
+    this.test();
+  },
   methods:{
     createUser(){
 
@@ -49,7 +57,13 @@ export default {
                 axios.post('https://127.0.0.1:8000/api/users',this.user, {withCredentials:true})
                     .then(res=>{console.log(res)})
 
-            }
+            },
+    test(){
+      axios.get('https://127.0.0.1:8000/api/Articles')
+      .then((res)=>{
+        this.articles = res.data;
+      })
+    }
   }
 
 }
